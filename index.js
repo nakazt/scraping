@@ -3,10 +3,11 @@ const PORT = 3000;
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
+require("dotenv").config();
 
 const app = express();
 
-const URL = "https://www.ves.co.jp/";
+const URL = process.env.MY_URL;
 const data = [];
 
 axios(URL)
@@ -15,7 +16,7 @@ axios(URL)
 
   const $ = cheerio.load(htmlParser);
 
-  $(".list", htmlParser).each(function () {
+  $(process.env.MY_EL, htmlParser).each(function () {
     const list = $(this).text();
     data.push({ list });
     console.log(data);
